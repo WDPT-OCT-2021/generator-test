@@ -35,11 +35,13 @@ app.locals.name = 'Mike';
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var postRouter = require('./routes/posts');
+const petRouter = require('./routes/pets');
 
 //These the prefixes to our URL route folders
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postRouter);
+app.use('/pets', petRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -62,7 +64,6 @@ mongoose
 //READ
 
 //Pull up everything in the database (all animals)
-
 ///returns in an array
 // Pet.find()
 //   .then((results) => {
