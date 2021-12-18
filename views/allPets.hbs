@@ -1,0 +1,7 @@
+<h2>All of our animals</h2>
+
+{{! This should link us to the animal's page }}
+{{#each animals}}
+  <h3><a href='/pets/find/id/{{id}}'>{{name}} the {{animal}}</a></h3>
+
+{{/each}}

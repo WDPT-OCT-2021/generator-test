@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Basic Title', name: 'Charlie' });
+  res.render('index', { title: 'Adopt a pet' });
 });
 
 module.exports = router;

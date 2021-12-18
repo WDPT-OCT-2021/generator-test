@@ -24,6 +24,16 @@ const petSchema = new Schema({
     require: true,
   },
 
+  vaccinated: {
+    type: Boolean,
+    default: false,
+  },
+
+  fixed: {
+    type: Boolean,
+    default: false,
+  },
+
   time: {
     type: Date,
     default: Date.now,

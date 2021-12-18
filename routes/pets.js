@@ -12,7 +12,8 @@ router.get('/all-pets', (req, res) => {
   Pet.find()
     .then((results) => {
       console.log('These are the results', results);
-      res.json(results);
+      // res.json(results);
+      res.render('allPets', { animals: results });
     })
     .catch((err) => {
       console.log('Something went wrong', err);
@@ -55,10 +56,13 @@ router.get('/find/id/:thePetId', (req, res) => {
         age: results.age,
         animal: results.animal,
         method: 'by id',
+        vaccinated: results.vaccinated,
+        fixed: results.fixed,
+        id: results._id,
       });
 
       //A more dynamic version
-      //   res.render('petPage', results);
+      // res.render('petPage', results);
     })
     .catch((err) => {
       console.log('Something went wrong', err);
@@ -71,6 +75,37 @@ router.get('/find/age/:thePetAge', (req, res) => {
     .then((results) => {
       console.log('These are the results', results);
       res.json(results, {});
+    })
+    .catch((err) => {
+      console.log('Something went wrong', err);
+    });
+});
+
+router.get('/adopt/:petId', (req, res) => {
+  console.log('This is the id:', req.params.petId);
+  Pet.findByIdAndRemove(req.params.petId)
+    .then((results) => {
+      console.log('These are the results', results);
+      res.render('index', { title: `${results.name} has been adopted` });
+    })
+    .catch((err) => {
+      console.log('Something went wrong', err);
+      mongoose.connection.close();
+    });
+});
+
+router.get('/add-pet', (req, res) => {
+  res.render('addPet');
+});
+
+router.post('/add-pet', (req, res) => {
+  console.log('This is what we got', req.body);
+  Pet.create(req.body)
+    .then((results) => {
+      console.log('These are the results', results);
+      res.render('index', {
+        title: `${results.name} has been added. We hope they find a good home!`,
+      });
     })
     .catch((err) => {
       console.log('Something went wrong', err);
