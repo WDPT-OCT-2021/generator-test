@@ -3,6 +3,11 @@
 <p>Is {{name}} vaccinated? {{vaccinated}}</p>
 <p>Is {{name}} fixed? {{fixed}}</p>
 
-<a href='/pets/adopt/{{id}}'>Adopt {{name}}</a>
+{{#if owner}}
+  <b>{{name}} found a good home</b>
+{{else}}
+  <a href='/pets/adopt/{{id}}'>Adopt {{name}}</a>
+
+{{/if}}
 
 <p>{{name}} was found by {{method}}</p>

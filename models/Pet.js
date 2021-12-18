@@ -34,6 +34,12 @@ const petSchema = new Schema({
     default: false,
   },
 
+  owner: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Owner',
+    default: null,
+  },
+
   time: {
     type: Date,
     default: Date.now,

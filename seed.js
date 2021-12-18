@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Pet = require('./models/Pet');
+const Owner = require('./models/Owner');
 
 const petArr = [
   {
@@ -98,7 +99,19 @@ mongoose
 Pet.create(petArr)
   .then((results) => {
     console.log('Success', results);
-    mongoose.connection.close();
+    // mongoose.connection.close();
+  })
+  .catch((err) => {
+    console.log('Something went wrong', err);
+  });
+
+Owner.create({
+  name: 'Test User',
+  location: 'Miami',
+})
+  .then((results) => {
+    console.log('Success', results);
+    // mongoose.connection.close();
   })
   .catch((err) => {
     console.log('Something went wrong', err);

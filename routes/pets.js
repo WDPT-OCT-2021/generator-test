@@ -45,24 +45,40 @@ router.get('/find/name/:thePetName', (req, res) => {
 });
 
 //Finding by Id
+router.get('/findJSON/id/:thePetId', (req, res) => {
+  console.log('This is in the params', req.params.thePetId);
+  Pet.findById(req.params.thePetId)
+    .populate('owner')
+    .then((results) => {
+      console.log('These are the results', results);
+      //There's nothing wrong with doing it this way
+      res.json(results);
+      //A more dynamic version
+      // res.render('petPage', results);
+    })
+    .catch((err) => {
+      console.log('Something went wrong', err);
+    });
+});
+
 router.get('/find/id/:thePetId', (req, res) => {
   console.log('This is in the params', req.params.thePetId);
   Pet.findById(req.params.thePetId)
     .then((results) => {
       console.log('These are the results', results);
       //There's nothing wrong with doing it this way
-      res.render('petPage', {
-        name: results.name,
-        age: results.age,
-        animal: results.animal,
-        method: 'by id',
-        vaccinated: results.vaccinated,
-        fixed: results.fixed,
-        id: results._id,
-      });
+      // res.render('petPage', {
+      //   name: results.name,
+      //   age: results.age,
+      //   animal: results.animal,
+      //   method: 'by id',
+      //   vaccinated: results.vaccinated,
+      //   fixed: results.fixed,
+      //   id: results._id,
+      // });
 
       //A more dynamic version
-      // res.render('petPage', results);
+      res.render('petPage', results);
     })
     .catch((err) => {
       console.log('Something went wrong', err);
@@ -83,7 +99,9 @@ router.get('/find/age/:thePetAge', (req, res) => {
 
 router.get('/adopt/:petId', (req, res) => {
   console.log('This is the id:', req.params.petId);
-  Pet.findByIdAndRemove(req.params.petId)
+
+  //PASTE THE OWNER'S OBJECT ID HERE!!!!!!!
+  Pet.findByIdAndUpdate(req.params.petId, { owner: OWNER_ID })
     .then((results) => {
       console.log('These are the results', results);
       res.render('index', { title: `${results.name} has been adopted` });
