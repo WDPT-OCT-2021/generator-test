@@ -62,22 +62,8 @@ router.get('/findJSON/id/:thePetId', (req, res) => {
 });
 
 router.get('/find/id/:thePetId', (req, res) => {
-  console.log('This is in the params', req.params.thePetId);
   Pet.findById(req.params.thePetId)
     .then((results) => {
-      console.log('These are the results', results);
-      //There's nothing wrong with doing it this way
-      // res.render('petPage', {
-      //   name: results.name,
-      //   age: results.age,
-      //   animal: results.animal,
-      //   method: 'by id',
-      //   vaccinated: results.vaccinated,
-      //   fixed: results.fixed,
-      //   id: results._id,
-      // });
-
-      //A more dynamic version
       res.render('petPage', results);
     })
     .catch((err) => {
